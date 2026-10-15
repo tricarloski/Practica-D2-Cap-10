@@ -21,35 +21,37 @@ Una tienda aplica descuentos dependiendo del importe de la compra.
 - Precio final después del descuento.
 
 ### Restricciones
-
-- Si la compra es menor de 100 €, no se aplica descuento.
-- A partir de 100 €, se aplica un descuento del 10 %.
-- A partir de 300 €, se aplica un descuento del 15 %.
-- El importe de la compra debe ser un número.
+- Si el importe es menor de 100 €, no hay descuento.
+- Desde 100 € (incluido) hasta menos de 300 € se aplica un 10 %.
+- Desde 300 € (incluido) se aplica un 15 %.
+- Los descuentos no se acumulan: se aplica solo el mayor que corresponda.
+- El importe se introduce con punto decimal (por ejemplo, 99.99) y se supone mayor o igual que 0.
+- Los importes se muestran con dos decimales.
 
 ## Diseño
 
 ### Pseudocódigo
 
-Algoritmo DescuentoTienda
-    Leer importe
+INICIO
+    UMBRAL_BAJO ← 100
+    UMBRAL_ALTO ← 300
+    DESCUENTO_BAJO ← 0.10
+    DESCUENTO_ALTO ← 0.15
 
-    Si importe >= 300 Entonces
-        porcentaje_descuento ← 0.15
-    Si no
-        Si importe >= 100 Entonces
-            porcentaje_descuento ← 0.10
-        Si no
-            porcentaje_descuento ← 0
-        Fin Si
-    Fin Si
+    LEER importe
 
-    descuento ← importe * porcentaje_descuento
-    precio_final ← importe - descuento
+    SI importe >= UMBRAL_ALTO ENTONCES
+        porcentaje ← DESCUENTO_ALTO
+    SI NO, SI importe >= UMBRAL_BAJO ENTONCES
+        porcentaje ← DESCUENTO_BAJO
+    SI NO
+        porcentaje ← 0
+    FIN SI
 
-    Escribir porcentaje_descuento
-    Escribir descuento
-    Escribir precio_final
-Fin Algoritmo
+    descuento ← importe * porcentaje
+    total ← importe - descuento
+
+    ESCRIBIR importe, descuento, porcentaje, total
+FIN
 
 # Diagrama de flujo hecho en el PDF
